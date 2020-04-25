@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+    <div class="container" style="padding: 0 40px;">
+        <div class="row">
+            <div class="col-md-4 mx-auto p-4" style="box-shadow:0 0 20px 14px whitesmoke; border-radius: 2%;">
+                <h3 class="h3 text-monospace border-bottom mb-4">{{title}}</h3>
+                <form method="Post">
+                    {% csrf_token %}
+                    {{ form | crispy}}
+                    <hr class="mb-3">
+                    <button type="submit" class="btn btn-outline-danger btn-block">submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

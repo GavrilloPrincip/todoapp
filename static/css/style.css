@@ -1,0 +1,37 @@
+.navbar li::before{
+    content:"";
+    width: 0px;
+    height: 100%;
+    position: absolute;
+    transition: 0.5s;
+    pointer-events: none;
+
+}
+.navbar li{
+    position: relative;
+    max-width: 350px;
+}
+.navbar li a{
+    color: black !important;
+}
+
+.navbar li:hover::before {
+    content: "";
+    background-color: gray;
+    opacity: 0.1;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+.navbar {
+    border-bottom: 2px solid darkred;
+    background-color: whitesmoke !important;
+    opacity: 0.9;
+}
+i{
+    color: darkred;
+}
+
+.ex:hover i{
+    color: white !important ;
+    transition: 0.8s;
+}

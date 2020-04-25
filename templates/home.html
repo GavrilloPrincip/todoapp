@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="container">
+
+    {% if duties %}
+    <table class="table table-hover text-monospace">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">Durumu</th>
+            <th colspan ='2' scope="col">Yayın Tarihi</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for duty in duties  %}
+        {% if duty.statu == 'P' %}
+        <tr style="text-decoration:line-through;">
+            <td>#{{duty.id}}</td>
+            <td>{{duty.title}}</td>
+            <td>
+                Pasif
+            </td>
+            <td>{{duty.created_date}}</td>
+            <td>
+                <a href="/duty/delete/{{duty.id}}" class="btn btn-outline-danger ex"><i class="fas fa-trash-alt"></i></a>
+                <a href="/duty/active/{{duty.id}}" class="btn btn-outline-warning ex"><i style="color: #ffc107;" class="fas fa-undo-alt"></i></a> 
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td>#{{duty.id}}</td>
+            <td>{{duty.title}}</td>
+            <td>
+                Aktif
+            </td>
+            <td>{{duty.created_date}}</td>
+            <td>
+                <a href="/duty/delete/{{duty.id}}" class="btn btn-outline-danger ex"><i class="fas fa-trash-alt"></i></a>
+                <a href="/duty/active/{{duty.id}}" class="btn btn-outline-success ex"><i class="fas fa-check" style="color: #28a745"></i></a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+
+    {% if request.user.is_authenticated %}
+    <div class="container" style="margin-top: 100px;">
+        <div class="row">
+        <div class="jumbotron text-monospace mx-auto">
+            <h2 class="display-6">To Do App deneme with Django</h2>
+            <p class="lead">Yapılacaklar listesine henüz hiçbirşey eklememişssin, DENEMEK İÇİN HEMEN EKLE</p>
+        </div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="container" style="margin-top: 100px;">
+        <div class="jumbotron text-monospace">
+            <h2 class="display-6">To Do App deneme with Django</h2>
+            <p class="lead">Yapılacaklar listesine henüz hiçbirşey eklememişssin, DENEMEK İÇİN HEMEN EKLE</p>
+            <hr class="my-4">
+            <p>Uygulamadan faydalanabilmek için önce giriş yapmalısın !</p>
+            <a class="btn btn-outline-danger" href="#" target="blank" role="button">giriş yap</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+    <div class="row mt-5 border-top pt-3">
+        <div class="col-lg-5 mx-auto">
+            <form method="POST">
+                        {% csrf_token %}
+                        {% crispy form %}
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock body %}
